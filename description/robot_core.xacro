@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <!-- Rover dimensions [OURS], 30 Sep 2026. Metres and kilograms. -->
+    <xacro:property name="chassis_length" value="0.25"/>
+    <xacro:property name="chassis_width" value="0.20"/>
+    <xacro:property name="chassis_height" value="0.08"/>
+    <xacro:property name="chassis_mass" value="1.3"/>
+    <xacro:property name="ground_clearance" value="0.02"/>
+    <xacro:property name="axle_from_rear" value="0.18"/>
+    <xacro:property name="wheel_radius" value="0.0425"/>
+    <xacro:property name="wheel_thickness" value="0.03"/>
+    <xacro:property name="wheel_gap" value="0.003"/>
+    <xacro:property name="wheel_mass" value="0.08"/>
+    <xacro:property name="caster_radius" value="0.01"/>
+    <xacro:property name="caster_from_rear" value="0.03"/>
+    <xacro:property name="caster_mass" value="0.02"/>
+
+    <!-- Colours for RViz -->
+    <material name="orange">
+        <color rgba="1 0.3 0.1 1"/>
+    </material>
+    <material name="blue">
+        <color rgba="0.2 0.2 1 1"/>
+    </material>
+    <material name="black">
+        <color rgba="0 0 0 1"/>
+    </material>
+
+    <!-- BASE LINK: centre of the drive axle, the point the robot turns about -->
+    <link name="base_link">
+    </link>
+
+    <!-- CHASSIS: origin at the rear-bottom-centre of the box -->
+    <joint name="chassis_joint" type="fixed">
+        <parent link="base_link"/>
+        <child link="chassis"/>
+        <origin xyz="${-axle_from_rear} 0 ${ground_clearance - wheel_radius}"/>
+    </joint>
+
+    <link name="chassis">
+        <visual>
+            <origin xyz="${chassis_length/2} 0 ${chassis_height/2}"/>
+            <geometry>
+                <box size="${chassis_length} ${chassis_width} ${chassis_height}"/>
+            </geometry>
+            <material name="orange"/>
+        </visual>
+    </link>
+
+</robot>
