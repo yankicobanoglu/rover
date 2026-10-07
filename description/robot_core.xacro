@@ -47,7 +47,7 @@
             <material name="orange"/>
         </visual>
     </link>
-    
+
     <!-- LEFT WHEEL: continuous joint on the axle, 118 mm to the left of base_link -->
     <joint name="left_wheel_joint" type="continuous">
         <parent link="base_link"/>
@@ -79,6 +79,22 @@
                 <cylinder radius="${wheel_radius}" length="${wheel_thickness}"/>
             </geometry>
             <material name="blue"/>
+        </visual>
+    </link>
+
+    <!-- CASTER: ball caster under the chassis rear; its lowest point sits on the floor -->
+    <joint name="caster_wheel_joint" type="fixed">
+        <parent link="chassis"/>
+        <child link="caster_wheel"/>
+        <origin xyz="${caster_from_rear} 0 ${caster_radius - ground_clearance}"/>
+    </joint>
+
+    <link name="caster_wheel">
+        <visual>
+            <geometry>
+                <sphere radius="${caster_radius}"/>
+            </geometry>
+            <material name="black"/>
         </visual>
     </link>
 </robot>
